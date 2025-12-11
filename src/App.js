@@ -21,50 +21,17 @@ export default function Grid() {
     setBoardState(newBoardState);
   }
 
-  return (
-    <>
-      <div className="board-row">
+  let content = boardState.map((row, rowIndex) => {
+    let squares = row.map((value, columnIndex) => {
+      return (
         <Square
-          handleClick={() => handleSquareClick(0, 0)}
-          value={boardState[0][0]}
+          value={value}
+          handleClick={() => handleSquareClick(rowIndex, columnIndex)}
         />
-        <Square
-          handleClick={() => handleSquareClick(0, 1)}
-          value={boardState[0][1]}
-        />
-        <Square
-          handleClick={() => handleSquareClick(0, 2)}
-          value={boardState[0][2]}
-        />
-      </div>
-      <div className="board-row">
-        <Square
-          handleClick={() => handleSquareClick(1, 0)}
-          value={boardState[1][0]}
-        />
-        <Square
-          handleClick={() => handleSquareClick(1, 1)}
-          value={boardState[1][1]}
-        />
-        <Square
-          handleClick={() => handleSquareClick(1, 2)}
-          value={boardState[1][2]}
-        />
-      </div>
-      <div className="board-row">
-        <Square
-          handleClick={() => handleSquareClick(2, 0)}
-          value={boardState[2][0]}
-        />
-        <Square
-          handleClick={() => handleSquareClick(2, 1)}
-          value={boardState[2][1]}
-        />
-        <Square
-          handleClick={() => handleSquareClick(2, 2)}
-          value={boardState[2][2]}
-        />
-      </div>
-    </>
-  );
+      );
+    });
+    return <div className="board-row">{squares}</div>;
+  });
+
+  return <>{content}</>;
 }
