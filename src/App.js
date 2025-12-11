@@ -9,6 +9,7 @@ function Square({ onClick, value }) {
 }
 
 export default function Grid() {
+  const [xIsNext, setXIsNext] = useState(true);
   const [boardState, setBoardState] = useState([
     [null, null, null],
     [null, null, null],
@@ -17,8 +18,9 @@ export default function Grid() {
 
   function handleSquareClick(row, column) {
     const newBoardState = boardState.map((row) => row.slice());
-    newBoardState[row][column] = "X";
+    newBoardState[row][column] = xIsNext ? "X" : "O";
     setBoardState(newBoardState);
+    setXIsNext(!xIsNext);
   }
 
   const content = boardState.map((row, rowIndex) => {
