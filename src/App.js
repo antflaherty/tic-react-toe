@@ -1,24 +1,36 @@
-function Square({ value }) {
-  return <button className="square">{value}</button>;
+import { useState } from "react";
+
+function Square() {
+  const [value, setValue] = useState(null);
+
+  function handleClick() {
+    setValue("X");
+  }
+
+  return (
+    <button className="square" onClick={handleClick}>
+      {value}
+    </button>
+  );
 }
 
 export default function Grid() {
   return (
     <>
       <div className="board-row">
-        <Square value="0,2" />
-        <Square value="1,2" />
-        <Square value="2,2" />
+        <Square />
+        <Square />
+        <Square />
       </div>
       <div className="board-row">
-        <Square value="0,1" />
-        <Square value="1,1" />
-        <Square value="2,1" />
+        <Square />
+        <Square />
+        <Square />
       </div>
       <div className="board-row">
-        <Square value="0,0" />
-        <Square value="1,0" />
-        <Square value="2,0" />
+        <Square />
+        <Square />
+        <Square />
       </div>
     </>
   );
