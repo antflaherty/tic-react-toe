@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-function Square({ handleClick, value }) {
+function Square({ onClick, value }) {
   return (
-    <button className="square" onClick={handleClick}>
+    <button className="square" onClick={onClick}>
       {value}
     </button>
   );
@@ -26,7 +26,7 @@ export default function Grid() {
       return (
         <Square
           value={value}
-          handleClick={() => handleSquareClick(rowIndex, columnIndex)}
+          onClick={() => handleSquareClick(rowIndex, columnIndex)}
         />
       );
     });
