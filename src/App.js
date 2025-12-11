@@ -21,15 +21,13 @@ export default function Grid() {
     setBoardState(newBoardState);
   }
 
-  let content = boardState.map((row, rowIndex) => {
-    let squares = row.map((value, columnIndex) => {
-      return (
-        <Square
-          value={value}
-          onClick={() => handleSquareClick(rowIndex, columnIndex)}
-        />
-      );
-    });
+  const content = boardState.map((row, rowIndex) => {
+    const squares = row.map((value, columnIndex) => (
+      <Square
+        value={value}
+        onClick={() => handleSquareClick(rowIndex, columnIndex)}
+      />
+    ));
     return <div className="board-row">{squares}</div>;
   });
 
