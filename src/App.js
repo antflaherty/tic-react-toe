@@ -16,7 +16,7 @@ export default function Grid() {
   ]);
 
   function handleSquareClick(row, column) {
-    const newBoardState = structuredClone(boardState);
+    const newBoardState = boardState.map((row) => row.slice());
     newBoardState[row][column] = "X";
     setBoardState(newBoardState);
   }
