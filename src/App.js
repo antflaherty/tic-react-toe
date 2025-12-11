@@ -16,10 +16,9 @@ export default function Grid() {
     [null, null, null],
   ]);
 
-  let winner;
+  const winner = calculateWinner(boardState);
 
   function handleSquareClick(row, column) {
-    winner = calculateWinner(boardState);
     if (winner || boardState[row][column]) {
       return;
     }
@@ -28,6 +27,13 @@ export default function Grid() {
     newBoardState[row][column] = xIsNext ? "X" : "O";
     setBoardState(newBoardState);
     setXIsNext(!xIsNext);
+  }
+
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
   const content = boardState.map((row, rowIndex) => {
@@ -40,7 +46,12 @@ export default function Grid() {
     return <div className="board-row">{squares}</div>;
   });
 
-  return <>{content}</>;
+  return (
+    <>
+      <div className="status">{status}</div>
+      {content}
+    </>
+  );
 }
 
 function calculateWinner(board) {
