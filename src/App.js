@@ -17,6 +17,10 @@ export default function Grid() {
   ]);
 
   function handleSquareClick(row, column) {
+    if (boardState[row][column]) {
+      return;
+    }
+
     const newBoardState = boardState.map((row) => row.slice());
     newBoardState[row][column] = xIsNext ? "X" : "O";
     setBoardState(newBoardState);
