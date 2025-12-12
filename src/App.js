@@ -61,8 +61,26 @@ export default function Game() {
     setHistory([...history, newBoardState]);
   }
 
+  function restoreState(move) {
+    setHistory(history.slice(0, move + 1));
+  }
+
   return (
-    <Grid boardState={history.at(-1)} onStateChange={handleBoardStateChange} />
+    <>
+      <Grid
+        boardState={history.at(-1)}
+        onStateChange={handleBoardStateChange}
+      />
+      <ol>
+        {history.map((_boardState, move) => {
+          return (
+            <button onClick={() => restoreState(move)}>
+              Got to move {move}
+            </button>
+          );
+        })}
+      </ol>
+    </>
   );
 }
 
