@@ -52,29 +52,38 @@ function Grid({ boardState, nextPlayer, onStateChange }) {
 }
 
 export default function Game() {
-  const [xIsNext, setXIsNext] = useState(true);
   const [history, setHistory] = useState([
-    [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
+    {
+      boardState: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      player: "X",
+    },
   ]);
 
   function handleBoardStateChange(newBoardState) {
-    setHistory([...history, newBoardState]);
-    setXIsNext(!xIsNext);
+    setHistory([
+      ...history,
+      {
+        boardState: newBoardState,
+        player: history.at(-1).player === "X" ? "O" : "X",
+      },
+    ]);
   }
 
   function restoreState(move) {
     setHistory(history.slice(0, move + 1));
   }
 
+  const currentGameState = history.at(-1);
+
   return (
     <>
       <Grid
-        boardState={history.at(-1)}
-        nextPlayer={xIsNext ? "X" : "O"}
+        boardState={currentGameState.boardState}
+        nextPlayer={currentGameState.player}
         onStateChange={handleBoardStateChange}
       />
       <ol>
