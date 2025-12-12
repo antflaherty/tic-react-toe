@@ -8,7 +8,10 @@ function Square({ onClick, value }) {
   );
 }
 
-function Grid({ boardState, nextPlayer, onStateChange }) {
+function Grid({
+  gameState: { boardState, player: nextPlayer },
+  onStateChange,
+}) {
   const winner = calculateWinner(boardState);
 
   function handleSquareClick(row, column) {
@@ -82,8 +85,7 @@ export default function Game() {
   return (
     <>
       <Grid
-        boardState={currentGameState.boardState}
-        nextPlayer={currentGameState.player}
+        gameState={currentGameState}
         onStateChange={handleBoardStateChange}
       />
       <ol>
