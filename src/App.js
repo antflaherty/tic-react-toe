@@ -8,10 +8,7 @@ function Square({ onClick, value }) {
   );
 }
 
-function Grid({
-  gameState: { boardState, player: nextPlayer },
-  onStateChange,
-}) {
+function Grid({ gameState: { boardState, player: nextPlayer }, onMoveMade }) {
   const winner = calculateWinner(boardState);
 
   function handleSquareClick(row, column) {
@@ -21,7 +18,7 @@ function Grid({
 
     const newBoardState = boardState.map((row) => row.slice());
     newBoardState[row][column] = nextPlayer;
-    onStateChange(newBoardState);
+    onMoveMade(newBoardState);
   }
 
   let status;
@@ -66,7 +63,7 @@ export default function Game() {
     },
   ]);
 
-  function handleBoardStateChange(newBoardState) {
+  function handleMoveMade(newBoardState) {
     setHistory([
       ...history,
       {
@@ -84,10 +81,7 @@ export default function Game() {
 
   return (
     <>
-      <Grid
-        gameState={currentGameState}
-        onStateChange={handleBoardStateChange}
-      />
+      <Grid gameState={currentGameState} onMoveMade={handleMoveMade} />
       <ol>
         {history.map((_boardState, move) => {
           return (
