@@ -62,6 +62,7 @@ export default function Game() {
       player: "X",
     },
   ]);
+  const currentGameState = history.at(-1);
 
   function handleMoveMade(newBoardState) {
     setHistory([
@@ -77,7 +78,13 @@ export default function Game() {
     setHistory(history.slice(0, move + 1));
   }
 
-  const currentGameState = history.at(-1);
+  const movesHistory = history.map((_boardState, move) => {
+    return (
+      <li key={move}>
+        <button onClick={() => restoreState(move)}>Got to move {move}</button>
+      </li>
+    );
+  });
 
   return (
     <div className="game">
@@ -85,17 +92,7 @@ export default function Game() {
         <Grid gameState={currentGameState} onMoveMade={handleMoveMade} />
       </div>
       <div className="game-info"></div>
-      <ol>
-        {history.map((_boardState, move) => {
-          return (
-            <li key={move}>
-              <button onClick={() => restoreState(move)}>
-                Got to move {move}
-              </button>
-            </li>
-          );
-        })}
-      </ol>
+      <ol>{movesHistory}</ol>
     </div>
   );
 }
