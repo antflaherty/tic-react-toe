@@ -74,9 +74,11 @@ export default function Game() {
       <ol>
         {history.map((_boardState, move) => {
           return (
-            <button onClick={() => restoreState(move)}>
-              Got to move {move}
-            </button>
+            <li>
+              <button onClick={() => restoreState(move)}>
+                Got to move {move}
+              </button>
+            </li>
           );
         })}
       </ol>
