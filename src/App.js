@@ -80,8 +80,11 @@ export default function Game() {
   const currentGameState = history.at(-1);
 
   return (
-    <>
-      <Grid gameState={currentGameState} onMoveMade={handleMoveMade} />
+    <div className="game">
+      <div className="game-board">
+        <Grid gameState={currentGameState} onMoveMade={handleMoveMade} />
+      </div>
+      <div className="game-info"></div>
       <ol>
         {history.map((_boardState, move) => {
           return (
@@ -93,7 +96,7 @@ export default function Game() {
           );
         })}
       </ol>
-    </>
+    </div>
   );
 }
 
