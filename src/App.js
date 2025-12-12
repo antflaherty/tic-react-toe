@@ -1,8 +1,13 @@
 import { useState } from "react";
 
-function Square({ onClick, value }) {
+function Square({ onClick, value, isWinningSquare }) {
+  const classNames = ["square"];
+  if (isWinningSquare) {
+    classNames.push("winning-square");
+  }
+
   return (
-    <button className="square" onClick={onClick}>
+    <button className={classNames.join(" ")} onClick={onClick}>
       {value}
     </button>
   );
@@ -29,13 +34,22 @@ function Grid({ gameState: { boardState, player: nextPlayer }, onMoveMade }) {
   }
 
   const content = boardState.map((row, rowIndex) => {
-    const squares = row.map((value, columnIndex) => (
-      <Square
-        key={columnIndex}
-        value={value}
-        onClick={() => handleSquareClick(rowIndex, columnIndex)}
-      />
-    ));
+    const squares = row.map((value, columnIndex) => {
+      const isWinningSquare =
+        !!winningState &&
+        winningState.some(
+          ([winRow, winCol]) => winRow === rowIndex && winCol === columnIndex
+        );
+
+      return (
+        <Square
+          key={columnIndex}
+          value={value}
+          isWinningSquare={isWinningSquare}
+          onClick={() => handleSquareClick(rowIndex, columnIndex)}
+        />
+      );
+    });
     return (
       <div key={rowIndex} className="board-row">
         {squares}
