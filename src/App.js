@@ -9,10 +9,10 @@ function Square({ onClick, value }) {
 }
 
 function Grid({ gameState: { boardState, player: nextPlayer }, onMoveMade }) {
-  const winner = calculateWinner(boardState);
+  const winningState = calculateWinner(boardState);
 
   function handleSquareClick(row, column) {
-    if (winner || boardState[row][column]) {
+    if (winningState || boardState[row][column]) {
       return;
     }
 
@@ -22,8 +22,8 @@ function Grid({ gameState: { boardState, player: nextPlayer }, onMoveMade }) {
   }
 
   let status;
-  if (winner) {
-    status = "Winner: " + winner;
+  if (winningState) {
+    status = "Winner: " + (nextPlayer === "X" ? "O" : "X");
   } else {
     status = "Next player: " + nextPlayer;
   }
@@ -152,7 +152,7 @@ function calculateWinner(board) {
       board[a[0]][a[1]] === board[b[0]][b[1]] &&
       board[a[0]][a[1]] === board[c[0]][c[1]]
     ) {
-      return board[a[0]][a[1]];
+      return winningStates[i];
     }
   }
   return null;
