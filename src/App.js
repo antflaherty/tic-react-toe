@@ -8,8 +8,7 @@ function Square({ onClick, value }) {
   );
 }
 
-function Grid({ boardState, onStateChange }) {
-  const [xIsNext, setXIsNext] = useState(true);
+function Grid({ boardState, nextPlayer, onStateChange }) {
   const winner = calculateWinner(boardState);
 
   function handleSquareClick(row, column) {
@@ -18,16 +17,15 @@ function Grid({ boardState, onStateChange }) {
     }
 
     const newBoardState = boardState.map((row) => row.slice());
-    newBoardState[row][column] = xIsNext ? "X" : "O";
+    newBoardState[row][column] = nextPlayer;
     onStateChange(newBoardState);
-    setXIsNext(!xIsNext);
   }
 
   let status;
   if (winner) {
     status = "Winner: " + winner;
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Next player: " + nextPlayer;
   }
 
   const content = boardState.map((row, rowIndex) => {
@@ -54,6 +52,7 @@ function Grid({ boardState, onStateChange }) {
 }
 
 export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
   const [history, setHistory] = useState([
     [
       [null, null, null],
@@ -64,6 +63,7 @@ export default function Game() {
 
   function handleBoardStateChange(newBoardState) {
     setHistory([...history, newBoardState]);
+    setXIsNext(!xIsNext);
   }
 
   function restoreState(move) {
@@ -74,6 +74,7 @@ export default function Game() {
     <>
       <Grid
         boardState={history.at(-1)}
+        nextPlayer={xIsNext ? "X" : "O"}
         onStateChange={handleBoardStateChange}
       />
       <ol>
