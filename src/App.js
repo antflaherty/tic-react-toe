@@ -96,7 +96,7 @@ export default function Game() {
         <Grid gameState={currentGameState} onMoveMade={handleMoveMade} />
       </div>
       <div className="game-info"></div>
-      <ol>{movesHistory}</ol>
+      <ul>{movesHistory}</ul>
     </div>
   );
 }
