@@ -81,7 +81,11 @@ export default function Game() {
   const movesHistory = history.map((_boardState, move) => {
     return (
       <li key={move}>
-        <button onClick={() => restoreState(move)}>Got to move {move}</button>
+        {move === history.length - 1 ? (
+          <div> You are at move {move}</div>
+        ) : (
+          <button onClick={() => restoreState(move)}>Got to move {move}</button>
+        )}
       </li>
     );
   });
