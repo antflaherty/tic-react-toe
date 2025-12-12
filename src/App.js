@@ -33,11 +33,16 @@ function Grid({ boardState, onStateChange }) {
   const content = boardState.map((row, rowIndex) => {
     const squares = row.map((value, columnIndex) => (
       <Square
+        key={columnIndex}
         value={value}
         onClick={() => handleSquareClick(rowIndex, columnIndex)}
       />
     ));
-    return <div className="board-row">{squares}</div>;
+    return (
+      <div key={rowIndex} className="board-row">
+        {squares}
+      </div>
+    );
   });
 
   return (
@@ -74,7 +79,7 @@ export default function Game() {
       <ol>
         {history.map((_boardState, move) => {
           return (
-            <li>
+            <li key={move}>
               <button onClick={() => restoreState(move)}>
                 Got to move {move}
               </button>
